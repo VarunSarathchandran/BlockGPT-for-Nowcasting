@@ -1,0 +1,8 @@
+{"time":"2025-03-11T10:54:41.720733929+01:00","level":"INFO","msg":"started logging, with flags","port-filename":"/scratch-local/cmeo.10435094/tmpjljys4cs/port-3697349.txt","pid":3697349,"debug":false,"disable-analytics":false}
+{"time":"2025-03-11T10:54:41.720849914+01:00","level":"INFO","msg":"FeatureState","shutdownOnParentExitEnabled":false}
+{"time":"2025-03-11T10:54:41.722107195+01:00","level":"INFO","msg":"Will exit if parent process dies.","ppid":3697349}
+{"time":"2025-03-11T10:54:41.722102486+01:00","level":"INFO","msg":"server is running","addr":{"IP":"127.0.0.1","Port":46157,"Zone":""}}
+{"time":"2025-03-11T10:54:41.85781036+01:00","level":"INFO","msg":"connection: ManageConnectionData: new connection created","id":"127.0.0.1:49604"}
+{"time":"2025-03-11T10:54:42.178362873+01:00","level":"INFO","msg":"handleInformInit: received","streamId":"nkj7jwg6","id":"127.0.0.1:49604"}
+{"time":"2025-03-11T10:54:42.291947285+01:00","level":"INFO","msg":"handleInformInit: stream started","streamId":"nkj7jwg6","id":"127.0.0.1:49604"}
+{"time":"2025-03-11T10:56:01.074601576+01:00","level":"INFO","msg":"Parent process exited, terminating service process."}

@@ -1,0 +1,16 @@
+{"time":"2025-07-13T11:05:59.30279081+02:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2025-07-13T11:05:59.30285003+02:00","level":"INFO","msg":"created symlink","path":"/gpfs/home1/cmeo/Varun/ivideogpt/wandb/run-20250713_110559-erpnu5z4/logs/debug-core.log"}
+{"time":"2025-07-13T11:05:59.414869704+02:00","level":"INFO","msg":"created new stream","id":"erpnu5z4"}
+{"time":"2025-07-13T11:05:59.41490478+02:00","level":"INFO","msg":"stream: started","id":"erpnu5z4"}
+{"time":"2025-07-13T11:05:59.414918601+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"erpnu5z4"}
+{"time":"2025-07-13T11:05:59.414929405+02:00","level":"INFO","msg":"sender: started","stream_id":"erpnu5z4"}
+{"time":"2025-07-13T11:05:59.414936719+02:00","level":"INFO","msg":"handler: started","stream_id":"erpnu5z4"}
+{"time":"2025-07-13T11:05:59.690094111+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-13T11:06:08.18724955+02:00","level":"INFO","msg":"stream: closing","id":"erpnu5z4"}
+{"time":"2025-07-13T11:06:08.187295388+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-13T11:06:08.187750677+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-13T11:06:08.821651955+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-13T11:06:09.018082714+02:00","level":"INFO","msg":"handler: closed","stream_id":"erpnu5z4"}
+{"time":"2025-07-13T11:06:09.018109557+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"erpnu5z4"}
+{"time":"2025-07-13T11:06:09.018144165+02:00","level":"INFO","msg":"sender: closed","stream_id":"erpnu5z4"}
+{"time":"2025-07-13T11:06:09.018280586+02:00","level":"INFO","msg":"stream: closed","id":"erpnu5z4"}

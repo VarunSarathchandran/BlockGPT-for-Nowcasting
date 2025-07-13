@@ -1,0 +1,16 @@
+{"time":"2025-07-13T10:11:23.845304183+02:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2025-07-13T10:11:23.845361548+02:00","level":"INFO","msg":"created symlink","path":"/gpfs/home1/cmeo/Varun/ivideogpt/wandb/run-20250713_101123-l8hed899/logs/debug-core.log"}
+{"time":"2025-07-13T10:11:23.954315878+02:00","level":"INFO","msg":"created new stream","id":"l8hed899"}
+{"time":"2025-07-13T10:11:23.954353407+02:00","level":"INFO","msg":"stream: started","id":"l8hed899"}
+{"time":"2025-07-13T10:11:23.954367507+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"l8hed899"}
+{"time":"2025-07-13T10:11:23.954377727+02:00","level":"INFO","msg":"sender: started","stream_id":"l8hed899"}
+{"time":"2025-07-13T10:11:23.954386837+02:00","level":"INFO","msg":"handler: started","stream_id":"l8hed899"}
+{"time":"2025-07-13T10:11:24.189164499+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-13T10:11:35.493089655+02:00","level":"INFO","msg":"stream: closing","id":"l8hed899"}
+{"time":"2025-07-13T10:11:35.493131794+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-13T10:11:35.493564944+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-13T10:11:36.104811706+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-13T10:11:36.312151087+02:00","level":"INFO","msg":"handler: closed","stream_id":"l8hed899"}
+{"time":"2025-07-13T10:11:36.312176303+02:00","level":"INFO","msg":"sender: closed","stream_id":"l8hed899"}
+{"time":"2025-07-13T10:11:36.312172229+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"l8hed899"}
+{"time":"2025-07-13T10:11:36.31233506+02:00","level":"INFO","msg":"stream: closed","id":"l8hed899"}

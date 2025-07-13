@@ -1,0 +1,557 @@
+07/13/2025 10:11:24 - INFO - __main__ - ***** Running training *****
+07/13/2025 10:11:24 - INFO - __main__ -   Num examples = 17750
+07/13/2025 10:11:24 - INFO - __main__ -   Num Epochs = 20
+07/13/2025 10:11:24 - INFO - __main__ -   Instantaneous batch size per device = 4
+07/13/2025 10:11:24 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 4
+07/13/2025 10:11:24 - INFO - __main__ -   Gradient Accumulation steps = 1
+07/13/2025 10:11:24 - INFO - __main__ -   Total optimization steps = 2000000
+  0%|                                                                                     | 0/2000000 [00:00<?, ?it/s]
+model is:  DistributedDataParallel(
+  (module): GPT(
+    (transformer): ModuleDict(
+      (wte): Embedding(1024, 1024)
+      (wpe): Embedding(576, 1024)
+      (drop): Dropout(p=0.0, inplace=False)
+      (h): ModuleList(
+        (0-7): 8 x Block(
+          (ln_1): LayerNorm()
+          (attn): CausalSelfAttention(
+            (c_attn): Linear(in_features=1024, out_features=3072, bias=False)
+            (c_proj): Linear(in_features=1024, out_features=1024, bias=False)
+            (attn_dropout): Dropout(p=0.0, inplace=False)
+            (resid_dropout): Dropout(p=0.0, inplace=False)
+          )
+          (ln_2): LayerNorm()
+          (mlp): MLP(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=False)
+            (gelu): GELU(approximate='none')
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=False)
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (ln_f): LayerNorm()
+    )
+    (lm_head): Linear(in_features=1024, out_features=1024, bias=False)
+  )
+)
+Number of parameters in the model: 102319104
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+validation:   3%|██                                                                   | 3/100 [00:01<00:38,  2.55it/s]
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1016, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1016, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1023, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1023, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1023, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1023, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1023, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1023, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1023, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1023, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1020, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1020, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1023, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1023, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+gen kwargs:  {'do_sample': True, 'temperature': 0.4, 'top_k': 70, 'max_new_tokens': 384}
+repeat iters 1
+iter number 0
+gen input shape is torch.Size([4, 192])
+generated tokens shape in each generate iter is:  torch.Size([4, 576])
+results shape is  torch.Size([4, 576])
+largest token in generated tokens  tensor(1023, device='cuda:0')
+indices shape torch.Size([4, 576])
+future length 6
+largest index inside detokenize is  tensor(1023, device='cuda:0')
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+h shape torch.Size([36, 128, 8, 8])
+entered no special token block
+indices shape inside tokenizer torch.Size([4, 576])
+labels shape inside tokenizer torch.Size([4, 576])
+special token False
+    start_train()
+  File "/gpfs/home1/cmeo/Varun/ivideogpt/train_gpt.py", line 881, in start_train
+    evaluate(args, accelerator, tokenizer, model, eval_dataloader, completed_steps)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/gpfs/home1/cmeo/Varun/ivideogpt/train_gpt.py", line 360, in evaluate
+    tokens, labels = accelerator.unwrap_model(tokenizer).tokenize(pixel_values,
+  File "/gpfs/home1/cmeo/Varun/ivideogpt/models/taming/vqgan.py", line 115, in tokenize
+    _,_,info=self.encode(x)
+  File "/gpfs/home1/cmeo/Varun/ivideogpt/models/taming/vqgan.py", line 70, in encode
+    h = self.encoder(x)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/gpfs/home1/cmeo/Varun/ivideogpt/models/taming/modules/diffusionmodules/model.py", line 432, in forward
+    h = self.down[i_level].block[i_block](hs[-1], temb)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/gpfs/home1/cmeo/Varun/ivideogpt/models/taming/modules/diffusionmodules/model.py", line 119, in forward
+    h = self.norm1(h)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 287, in forward
+    return F.group_norm(
+  File "/home/cmeo/.conda/envs/blockgpt/lib/python3.9/site-packages/torch/nn/functional.py", line 2561, in group_norm
+    return torch.group_norm(input, num_groups, weight, bias, eps, torch.backends.cudnn.enabled)
+KeyboardInterrupt
