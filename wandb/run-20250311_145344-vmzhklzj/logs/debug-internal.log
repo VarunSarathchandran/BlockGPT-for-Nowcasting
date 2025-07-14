@@ -1,8 +1,0 @@
-{"time":"2025-03-11T14:53:44.318559432+01:00","level":"INFO","msg":"using version","core version":"0.19.1"}
-{"time":"2025-03-11T14:53:44.318613073+01:00","level":"INFO","msg":"created symlink","path":"/gpfs/home1/cmeo/Varun/ivideogpt/wandb/run-20250311_145344-vmzhklzj/logs/debug-core.log"}
-{"time":"2025-03-11T14:53:44.431252409+01:00","level":"INFO","msg":"created new stream","id":"vmzhklzj"}
-{"time":"2025-03-11T14:53:44.431305547+01:00","level":"INFO","msg":"stream: started","id":"vmzhklzj"}
-{"time":"2025-03-11T14:53:44.431340388+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"vmzhklzj"}
-{"time":"2025-03-11T14:53:44.431358195+01:00","level":"INFO","msg":"sender: started","stream_id":"vmzhklzj"}
-{"time":"2025-03-11T14:53:44.431372297+01:00","level":"INFO","msg":"handler: started","stream_id":"vmzhklzj"}
-{"time":"2025-03-11T14:53:44.690712218+01:00","level":"INFO","msg":"Starting system monitor"}

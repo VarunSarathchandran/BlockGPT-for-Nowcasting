@@ -1,7 +1,0 @@
-{"time":"2025-03-11T14:53:42.880428193+01:00","level":"INFO","msg":"started logging, with flags","port-filename":"/scratch-local/cmeo.10441403/tmp8xjbn__m/port-4162771.txt","pid":4162771,"debug":false,"disable-analytics":false}
-{"time":"2025-03-11T14:53:42.880550785+01:00","level":"INFO","msg":"FeatureState","shutdownOnParentExitEnabled":false}
-{"time":"2025-03-11T14:53:43.850815355+01:00","level":"INFO","msg":"Will exit if parent process dies.","ppid":4162771}
-{"time":"2025-03-11T14:53:43.850857286+01:00","level":"INFO","msg":"server is running","addr":{"IP":"127.0.0.1","Port":42647,"Zone":""}}
-{"time":"2025-03-11T14:53:44.014873754+01:00","level":"INFO","msg":"connection: ManageConnectionData: new connection created","id":"127.0.0.1:35226"}
-{"time":"2025-03-11T14:53:44.31752028+01:00","level":"INFO","msg":"handleInformInit: received","streamId":"vmzhklzj","id":"127.0.0.1:35226"}
-{"time":"2025-03-11T14:53:44.431315513+01:00","level":"INFO","msg":"handleInformInit: stream started","streamId":"vmzhklzj","id":"127.0.0.1:35226"}
