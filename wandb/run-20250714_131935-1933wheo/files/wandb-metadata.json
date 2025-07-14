@@ -1,0 +1,128 @@
+{
+  "os":  "Linux-5.15.0-127-generic-x86_64-with-glibc2.31",
+  "python":  "CPython 3.9.21",
+  "startedAt":  "2025-07-14T11:19:35.158016Z",
+  "args":  [
+    "--seed",
+    "60",
+    "--dataset_name",
+    "knmi_5mins",
+    "--exp_name",
+    "block64_16H_KNMI5_seed3",
+    "--vqgan_type",
+    "vqgan",
+    "--pretrained_model_name_or_path",
+    "/space2/vsarathchandra/Diffcast/Checkpoints/vqgan_7M_KNMI_1024/checkpoints/ckpt-177500.pt",
+    "--config_name",
+    "configs/GPT/config_blockGPT_KNMI5.json",
+    "--per_device_train_batch_size",
+    "4",
+    "--gradient_accumulation_steps",
+    "1",
+    "--learning_rate",
+    "1e-5",
+    "--lr_scheduler_type",
+    "cosine",
+    "--resolution",
+    "128",
+    "--dataloader_num_workers",
+    "8",
+    "--video_stepsize",
+    "1",
+    "--segment_length",
+    "25",
+    "--context_length",
+    "5",
+    "--use_eval_dataset",
+    "--weight_decay",
+    "0.01",
+    "--llama_attn_drop",
+    "0.1",
+    "--embed_no_wd",
+    "--predictor_name",
+    "blockGPT",
+    "--encoder_config",
+    "configs/config_vqgan.json",
+    "--validation_steps",
+    "1000"
+  ],
+  "program":  "/space2/vsarathchandra/blockGPT/train_gpt.py",
+  "codePath":  "train_gpt.py",
+  "git":  {
+    "remote":  "https://github.com/VarunSarathchandran/BlockGPT-for-Nowcasting.git",
+    "commit":  "42cf2b4f7a9b1879d2e64c3d113ad97dce678e1d"
+  },
+  "email":  "V.Sarathchandran@student.tudelft.nl",
+  "root":  "/space2/vsarathchandra/blockGPT",
+  "host":  "quechua1.ewi.tudelft.nl",
+  "executable":  "/space2/vsarathchandra/conda_envs/blockgpt/bin/python",
+  "codePathLocal":  "train_gpt.py",
+  "cpu_count":  128,
+  "cpu_count_logical":  255,
+  "gpu":  "NVIDIA RTX A6000",
+  "gpu_count":  8,
+  "disk":  {
+    "/":  {
+      "total":  "124896559104",
+      "used":  "90529792000"
+    }
+  },
+  "memory":  {
+    "total":  "1081983324160"
+  },
+  "cpu":  {
+    "count":  128,
+    "countLogical":  255
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    },
+    {
+      "name":  "NVIDIA RTX A6000",
+      "memoryTotal":  "51527024640",
+      "cudaCores":  10752,
+      "architecture":  "Ampere"
+    }
+  ],
+  "cudaVersion":  "12.4"
+}

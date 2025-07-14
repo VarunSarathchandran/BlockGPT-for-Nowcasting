@@ -1,0 +1,16 @@
+{"time":"2025-07-14T13:19:35.159766678+02:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2025-07-14T13:19:35.159782168+02:00","level":"INFO","msg":"created symlink","path":"/space2/vsarathchandra/blockGPT/wandb/run-20250714_131935-1933wheo/logs/debug-core.log"}
+{"time":"2025-07-14T13:19:35.372610585+02:00","level":"INFO","msg":"created new stream","id":"1933wheo"}
+{"time":"2025-07-14T13:19:35.372680276+02:00","level":"INFO","msg":"stream: started","id":"1933wheo"}
+{"time":"2025-07-14T13:19:35.372734696+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"1933wheo"}
+{"time":"2025-07-14T13:19:35.372951388+02:00","level":"INFO","msg":"handler: started","stream_id":"1933wheo"}
+{"time":"2025-07-14T13:19:35.372974939+02:00","level":"INFO","msg":"sender: started","stream_id":"1933wheo"}
+{"time":"2025-07-14T13:19:35.791701915+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-14T13:19:41.745570211+02:00","level":"INFO","msg":"stream: closing","id":"1933wheo"}
+{"time":"2025-07-14T13:19:41.745625772+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-14T13:19:41.746322948+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-14T13:19:42.380940242+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-14T13:19:42.584833232+02:00","level":"INFO","msg":"handler: closed","stream_id":"1933wheo"}
+{"time":"2025-07-14T13:19:42.584939093+02:00","level":"INFO","msg":"sender: closed","stream_id":"1933wheo"}
+{"time":"2025-07-14T13:19:42.584913232+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"1933wheo"}
+{"time":"2025-07-14T13:19:42.585101094+02:00","level":"INFO","msg":"stream: closed","id":"1933wheo"}
