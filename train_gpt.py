@@ -97,21 +97,12 @@ def load_vqgan_models(vqgan_type,configs,checkpoints):
             from models.taming.vqgan import get_model
         #    print("config is: ",**configs[i])
             model = get_model(**configs[i])
-        elif vqgan_type == 'cond_vqgan':
-            from models.taming.vqgan import get_cond_model
-           # print("config is: ",configs[i])
-            model = get_cond_model(**configs[i])
-        elif vqgan_type == 'vit_vqgan':
-            from models.enhancing.modules.stage1.vitvqgan import get_model
-            model = get_model(configs[i])
+
         elif vqgan_type == 'vae':
 
             from models.taming.vae import get_model
             model = get_model(configs[i])
-        elif vqgan_type == 'xqgan':
-            from tokenizer.tokenizer_image.xqgan_model import get_model
-            model = get_model(configs[i])
-    
+      
        # model = get_model(**configs[i])
         model.load_state_dict(data['model'])
         loaded_models.append(model)
@@ -119,7 +110,7 @@ def load_vqgan_models(vqgan_type,configs,checkpoints):
     return loaded_models
 
 def get_tokenizer(args):
-    if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan' or args.vqgan_type == 'vit_vqgan' or args.vqgan_type == 'vae' or args.vqgan_type == 'xqgan':
+    if args.vqgan_type == 'vqgan' or args.vqgan_type == 'vae' :
       
         with open(args.encoder_config) as f:
                     config = json.load(f)
@@ -128,12 +119,9 @@ def get_tokenizer(args):
         
 
         vq_model = load_vqgan_models(args.vqgan_type,[config],checkpoints)[0]
-        if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan':
+        if args.vqgan_type == 'vqgan':
              vocab_size = vq_model.quantize.n_e
-        elif args.vqgan_type == 'vit_vqgan':
-             vocab_size = vq_model.quantizer.n_embed
-        elif args.vqgan_type == 'xqgan':
-             vocab_size = vq_model.quantize.vocab_size
+       
         elif args.vqgan_type == 'vae':
             vocab_size = None
             assert args.special_token == False
@@ -234,7 +222,7 @@ def parse_args():
     parser.add_argument("--output_dir", type=str, default="/space2/vsarathchandra/blockGPT/Outputs", help="Where to store the final model.")
     parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
     parser.add_argument("--vqgan_type", type=str, default="vqgan",
-                        choices=['vqgan', 'ctx_vqgan','cond_vqgan','vit_vqgan','vae','xqgan'], help="VQGAN model type to use.")
+                        choices=['vqgan','vae'], help="VQGAN model type to use.")
     parser.add_argument('--pretrained_model_name_or_path', type=str, required=True)
     parser.add_argument('--n_tokens_per_frame', type=int,default=64, required=False,help="number of tokens per frame defined in the encoder")
     parser.add_argument('--encoder_config', type=str, help = 'path to the encoder config file. Not required for ctx_vqgan')
@@ -350,7 +338,7 @@ def evaluate(args, accelerator, tokenizer, model, eval_dataloader, completed_ste
         batch_size = pixel_values.shape[0]
 
 
-        if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan' or args.vqgan_type == 'vit_vqgan' or args.vqgan_type == "xqgan":
+        if args.vqgan_type == 'vqgan':
          n_tokens=args.n_tokens_per_frame
          tokens, labels = accelerator.unwrap_model(tokenizer).tokenize(pixel_values,
                                                                       args.context_length,
@@ -405,7 +393,7 @@ def evaluate(args, accelerator, tokenizer, model, eval_dataloader, completed_ste
         # predict next frames
         if (i % args.log_gif_interval == 0 and accelerator.is_main_process):
             if args.special_token:
-                if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan' or args.vqgan_type == 'vit_vqgan' or args.vqgan_type == "xqgan":
+                if args.vqgan_type == 'vqgan' :
                     gen_input = tokens[:, :args.context_length * (args.n_tokens_per_frame + 1)]  # TODO: magic number #shape is [batch_size, 1025]
                
                     max_new_tokens = (1 + args.n_tokens_per_frame) * (args.segment_length - args.context_length) - 1   
@@ -417,7 +405,7 @@ def evaluate(args, accelerator, tokenizer, model, eval_dataloader, completed_ste
                     
                     max_new_tokens = (1 + args.n_tokens_per_frame) * (args.segment_length - args.context_length) - 1
             else:
-                if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan' or args.vqgan_type == 'vit_vqgan' or args.vqgan_type == "xqgan":
+                if args.vqgan_type == 'vqgan' :
                     gen_input = tokens[:, :args.context_length * args.n_tokens_per_frame]
                     max_new_tokens = args.n_tokens_per_frame * (args.segment_length - args.context_length)
                 elif args.vqgan_type == 'vae':
@@ -457,7 +445,7 @@ def evaluate(args, accelerator, tokenizer, model, eval_dataloader, completed_ste
 
             context_res = int(np.sqrt(args.n_tokens_per_frame))
             if args.max_decode_batchsize is not None and generated_tokens.shape[0] > args.max_decode_batchsize:
-                if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan' or args.vqgan_type == 'vit_vqgan' or args.vqgan_type == "xqgan":
+                if args.vqgan_type == 'vqgan' :
                     recon_output = batch_forward(
                     args.max_decode_batchsize,
                     generated_tokens,
@@ -485,7 +473,7 @@ def evaluate(args, accelerator, tokenizer, model, eval_dataloader, completed_ste
                         )
                     )
             else:
-                if args.vqgan_type == 'vqgan' or args.vqgan_type == 'cond_vqgan' or args.vqgan_type == 'vit_vqgan' or args.vqgan_type == "xqgan":
+                if args.vqgan_type == 'vqgan':
                     print("largest token in generated tokens ",torch.max(generated_tokens))
                     recon_output = accelerator.unwrap_model(tokenizer).detokenize(
                     generated_tokens, args.context_length,context_res,args.segment_length,include_sos=args.include_sos,include_special_toks=args.special_token
@@ -782,7 +770,7 @@ def start_train():
 
 
             with torch.no_grad():
-                if args.vqgan_type == "vqgan"  or args.vqgan_type == "vit_vqgan" or args.vqgan_type == "xqgan":
+                if args.vqgan_type == "vqgan" :
                     n_tokens = args.n_tokens_per_frame
                     tokens, labels = accelerator.unwrap_model(tokenizer).tokenize(pixel_values, args.context_length,n_tokens,include_sos=args.include_sos,include_special_toks=args.special_token)
 
@@ -792,7 +780,7 @@ def start_train():
                 
 
                 else: #ctx_vqgan
-                    tokens, labels = accelerator.unwrap_model(tokenizer).tokenize(pixel_values, args.context_length)                                                                   
+                    raise NotImplementedError("the model is not implemented yet")                                                               
                
                 
                 if args.vqgan_type !='vae':

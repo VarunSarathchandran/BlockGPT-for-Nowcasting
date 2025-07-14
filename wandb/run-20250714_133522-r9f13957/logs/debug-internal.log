@@ -1,0 +1,16 @@
+{"time":"2025-07-14T13:35:22.248756476+02:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2025-07-14T13:35:22.248777136+02:00","level":"INFO","msg":"created symlink","path":"/space2/vsarathchandra/blockGPT/wandb/run-20250714_133522-r9f13957/logs/debug-core.log"}
+{"time":"2025-07-14T13:35:22.464691956+02:00","level":"INFO","msg":"created new stream","id":"r9f13957"}
+{"time":"2025-07-14T13:35:22.464737456+02:00","level":"INFO","msg":"stream: started","id":"r9f13957"}
+{"time":"2025-07-14T13:35:22.469571183+02:00","level":"INFO","msg":"sender: started","stream_id":"r9f13957"}
+{"time":"2025-07-14T13:35:22.469573703+02:00","level":"INFO","msg":"handler: started","stream_id":"r9f13957"}
+{"time":"2025-07-14T13:35:22.469582423+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"r9f13957"}
+{"time":"2025-07-14T13:35:22.803827378+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-14T13:37:19.499604057+02:00","level":"INFO","msg":"stream: closing","id":"r9f13957"}
+{"time":"2025-07-14T13:37:19.499655088+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-14T13:37:19.500263814+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-14T13:37:20.260056676+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-14T13:37:20.528446388+02:00","level":"INFO","msg":"handler: closed","stream_id":"r9f13957"}
+{"time":"2025-07-14T13:37:20.528494379+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"r9f13957"}
+{"time":"2025-07-14T13:37:20.528527129+02:00","level":"INFO","msg":"sender: closed","stream_id":"r9f13957"}
+{"time":"2025-07-14T13:37:20.5285743+02:00","level":"INFO","msg":"stream: closed","id":"r9f13957"}
