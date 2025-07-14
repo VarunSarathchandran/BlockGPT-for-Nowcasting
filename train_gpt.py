@@ -175,7 +175,7 @@ def generate_multiple_times(predictor_name,
             print('gen input shape is', gen_input.shape)
             if predictor_name == 'blockGPT':
                 generated_tokens = accelerator.unwrap_model(model).generate(
-                    gen_input.repeat(repeat_times, 1), gen_kwargs['max_new_tokens'],top_k = gen_kwargs['top_k'], temperature = gen_kwargs['temperature']
+                    gen_input.repeat(repeat_times, 1), gen_kwargs['max_new_tokens']
                    # this is meaningless but supressing warning
                 )
             elif predictor_name == 'continuousGPT':
@@ -231,7 +231,7 @@ def parse_args():
                         help="The scheduler type to use.", choices=["linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"])
     parser.add_argument("--num_warmup_steps", type=int, default=5000,
                         help="Number of steps for the warmup in the lr scheduler.")
-    parser.add_argument("--output_dir", type=str, default="/projects/0/prjs0951/Varun/log_trm", help="Where to store the final model.")
+    parser.add_argument("--output_dir", type=str, default="/space2/vsarathchandra/blockGPT/Outputs", help="Where to store the final model.")
     parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
     parser.add_argument("--vqgan_type", type=str, default="vqgan",
                         choices=['vqgan', 'ctx_vqgan','cond_vqgan','vit_vqgan','vae','xqgan'], help="VQGAN model type to use.")

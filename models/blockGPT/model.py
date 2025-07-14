@@ -348,6 +348,9 @@ class GPTConfig:
     is_block: bool = False
     num_block_tokens: int = 64
     use_ssmax: bool =False
+    #generation args
+    temperature: float = 1.0
+    top_k: int = None
 class GPT(nn.Module):
 
     def __init__(self, config):
@@ -391,7 +394,9 @@ class GPT(nn.Module):
         for pn, p in self.named_parameters():
             if pn.endswith('c_proj.weight'):
                 torch.nn.init.normal_(p, mean=0.0, std=0.02/math.sqrt(2 * config.n_layer))
-
+        #generation args:
+        self.temperature = config.temperature
+        self.top_k = config.top_k
         # report number of parameters
         print("number of parameters: %.2fM" % (self.get_num_params()/1e6,))
 
@@ -473,7 +478,7 @@ class GPT(nn.Module):
 
    
     @torch.no_grad()
-    def generate(self, idx, max_new_tokens, temperature=0.3, top_k=None):
+    def generate(self, idx, max_new_tokens):
         """
         Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
         the sequence max_new_tokens times, feeding the predictions back into the model each time.
@@ -488,18 +493,18 @@ class GPT(nn.Module):
             logits, _ = self(idx_cond)
             # pluck the logits at the final step and scale by desired temperature
             if self.is_block:
-                logits = logits[:, -self.num_block_tokens:, :] / temperature
+                logits = logits[:, -self.num_block_tokens:, :] / self.temperature
             else:
-                logits = logits[:, -1, :] / temperature
+                logits = logits[:, -1, :] / self.temperature
             # optionally crop the logits to only the top k options
             
-            if top_k is not None:
+            if self.top_k is not None:
          
                 if self.is_block:
                         B, T, V = logits.shape  # B = batch, T = block_size, V = vocab size
 
                         # Get top_k logits at each position (B × T × top_k)
-                        v, _ = torch.topk(logits, min(top_k, V), dim=-1)
+                        v, _ = torch.topk(logits, min(self.top_k, V), dim=-1)
 
                         # Get the k-th largest logit at each position → shape (B, T, 1)
                         kth_value = v[:, :, -1].unsqueeze(-1)
@@ -507,7 +512,7 @@ class GPT(nn.Module):
                         # Mask out everything below the k-th largest logit
                         logits = logits.masked_fill(logits < kth_value, float('-inf'))
                 else:
-                        v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                        v, _ = torch.topk(logits, min(self.top_k, logits.size(-1)))
                         logits[logits < v[:, [-1]]] = -float('Inf')
             # apply softmax to convert logits to (normalized) probabilities
             probs = F.softmax(logits, dim=-1)
