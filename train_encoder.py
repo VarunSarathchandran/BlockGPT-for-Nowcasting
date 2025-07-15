@@ -89,7 +89,7 @@ def create_parser():
     parser.add_argument('--encoder',       type=str,   default='vqgan',           help='encoder model for deterministic prediction')
     parser.add_argument('--stochastic',     type=str,   default='diffusion',           help='diffusion model for stochastic prediction')
     parser.add_argument('--use_diff',       action="store_true", default=False,        help='Weather use diff framework, as for ablation study')
-    parser.add_argument('--encoder_config',     type=str,   default='configs/config_vqgan.json',           help='path to encoder config file')
+    parser.add_argument('--encoder_config',     type=str,   default='configs/Encoders/config_vqgan.json',           help='path to encoder config file')
     
     parser.add_argument("--seed",           type=int,   default=0,              help='Experiment seed')
     parser.add_argument("--exp_dir",        type=str,   default='Outputs/',   help="experiment directory")

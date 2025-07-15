@@ -1,7 +1,7 @@
 {
     "vqgan_type": "vqgan",
     "vqgan_ckpt": "/space2/vsarathchandra/iVideoGPT/Checkpoints/vqgan_sevir_7M_1024ckpt-267880.pt",
-    "vqgan_config": "configs/config_vqgan.json",
+    "vqgan_config": "configs/Encoders/config_vqgan.json",
     "predictor_type": "blockGPT",
     "predictor_config": "configs/GPT/config_blockGPT_SEVIR30.json",
     "predictor_ckpt": "/space2/vsarathchandra/iVideoGPT/FinalCheckpoints/blockGPT_SEVIR30_seed2.safetensors",

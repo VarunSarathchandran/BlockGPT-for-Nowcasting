@@ -1,5 +1,5 @@
 vqgan:
-  config: configs/config_vqgan.json
+  config: configs/Encoders/config_vqgan.json
   checkpoint: /space2/vsarathchandra/iVideoGPT/FinalCheckpoints/vqgan_KNMI.pt
 
 blockGPT_models:

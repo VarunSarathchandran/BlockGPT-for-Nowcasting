@@ -1,90 +1,163 @@
-BlockGPT: Readme to follow
+# BlockGPT: Autoregressive Video Prediction for Precipitation Nowcasting
 
-Structure of the repo
+BlockGPT is a spatio-temporal generative model designed for precipitation nowcasting. It models weather evolution as a video prediction task using transformer-based architectures. This repository provides pipelines for:
 
+- BlockGPT and NowcastingGPT (autoregressive models)
+- DiffCast + BlockGPT (diffusion-based hybrid)
+- DiffCast + PhyDNet (benchmark)
+- VQGAN/VAE encoders
 
-configs:
-        Evaluations: evaluation configs where the paths to the checkpoints of models to be evaluated are placed.
-        GPT: all blockGPT configs including nowcastingGPT. 
-        config_vqgan: vqgan config which is used in the study (vae and vqgan perturb are other encoders which can be benchmarked)
-        config_blockGPTBackbone: this is the config for the blockGPT backbone used in Diffcast
+---
 
-dataset:
-        get_datasets.py: this is the main dataset script where the paths to the dataset must be set. It calls the dataloaders in the other scripts.
-        dataset_knmi and dataset_sevir are the corresponding dataloaders.
+## 🗺️ Repository Structure
 
-job_scripts:
-        contain job scripts to train the encoders, blockGPT, diffcast + phydnet and diffcast + blockgpt and nowcsatingGPT.
-        note that these have only been used for snellius. For quechua, I run the .py (using the same command as in  the job script) in a screen session (alternate to nohup)
-
-models:
-        blockGPT: contains the GPT class used. Note that nowcastingGPT also uses this class but with a simple config change (is_block is set to False). 
-
-Results: 
-
-        Evaluations: stores prediction map plots as well as .pkl files of metrics which are outputs of evaluate.py. It also writes a .txt file of the names of the models that have been evaluated.
-
-        FinalPickledResults: contains pickle results of models that have been evaluated for the thesis.
-
-utils: utilites used by training code.
-
-scripts:
-    train_gpt.py- to train blockGPT or nowcastingGPT
-    train_diffcast.py- to train diffcast with either phydnet or blockGPT
-    train_encoder.py- to train vqgan, vae or vqgan with perturb
-    evaluate.py- evaluates all models
-    plot_metrics.ipynb- contains the plotting functions used in my thesis. It retrieves the pickle files in FinalPickledResults and plots them
-
+```
+configs/                 # All JSON/YAML configs for training and evaluation
+    GPT/                 # Configs for BlockGPT & NowcastingGPT
+    Evaluations/         # Evaluation config files. Used by evaluate.py. Paths to model checkpoints which need to be evaluated are placed here for convenience. 
+    Encoders/            # Config for the encoders that can be trained in this repo (vqgan,vae,vqgan with perturbations). Only VQGAN is used in BlockGPT.
+    config_blockGPTBackbone/ # BlockGPT backbone used in DiffCast
     
 
+dataset/                 # Dataset loaders and path setup
+    get_datasets.py      # Entry point for dataset selection
+    dataset_knmi.py      # dataset specific dataloaders
+    dataset_sevir.py
 
+job_scripts/             # SLURM job scripts (tested on Snellius)
+    *.sh                 # Jobs for training encoders, GPTs, and DiffCast variants. Note that the GPT can only train with 1 GPU on quechua due to an error (command included where required)
 
+models/
+    blockGPT/            # Core transformer class (shared by BlockGPT & NowcastingGPT)
+    diffusion/           # dependencies used by diffusion blocks 
+    phydnet/              # phydnet as diffcast backbone 
+    taming/              # encoder repository modified from Taming Transformers 
+    diffcast.py/         # Diffcast class
+    blockGPTBackbone.py/ # Class unifying the VQGAN and GPT into a single class for diffcast backbone
 
+Results/
+    Evaluations/         # Metrics & visualizations for evaluated models, written to by evaluate.py
+    FinalPickledResults/ # Pickled evaluation results used in thesis
 
+utils/                   # Utility functions used across training & evaluation
 
-Instructions to create the environment
+main scripts/
+    train_encoder.py     # Train VQGAN, VAE, or perturbed VQGAN
+    train_gpt.py         # Train BlockGPT or NowcastingGPT
+    train_diffcast.py    # Train DiffCast with PhyDNet or BlockGPT
+    evaluate.py          # Evaluate trained models
+    plot_metrics.ipynb   # Plot results from stored pickle files
+```
 
-Step 1: conda env create -f blockgpt_env.yml
-Step 2 (only if you get the error importing cached_download in dynamic_utils.py when you run training):
-        Replace this line in dynamic_utils.py (path to the file will be mentioned in the error log)
-        from huggingface_hub import cached_download, hf_hub_download, model_info
-        with 
-        from huggingface_hub import hf_hub_download, model_info
-Step 3: pip install imageio==2.33.0 --no-deps 
-Step 4: pip install ema-pytorch
+---
 
-Note that all paths in the github repository correspond to quechua paths. A folder on snellius in the name of 'blockGPT' is a copy of this repository but with the paths adjusted everywhere for snellius.
+## 🛠️ Installation
 
-Arranging the Dataset
+```bash
+# Step 1: Create environment
+conda env create -f blockgpt_env.yml
+conda activate blockgpt
 
-KNMI: The dataset used in this study has been curated from the raw KNMI precipitation dataset.
-Curation steps will be explained in the appendix. Assuming that it has already been curated, you must change the locations in get_datases.py located in the dataset folder to point to the curated dataset.
+# Step 2: Patch huggingface_hub if needed
+# If you get an import error from dynamic_utils.py:
+# Replace this:
+# from huggingface_hub import cached_download, hf_hub_download, model_info
+# With this:
+# from huggingface_hub import hf_hub_download, model_info
 
-Note that KNMI 30 minutes and KNMI 5 minutes are inherently different sources. So please remember to change both paths.
+# Step 3: Install specific versions
+pip install imageio==2.33.0 --no-deps
+pip install ema-pytorch
+```
 
-SEVIR: SEVIR comes directly available with a dataloader. Place the raw dataset's path in get_datasets.py
+---
 
+## 📦 Dataset Setup
 
-Training the Encoder
+### KNMI
 
-The encoder used in the study is a vqgan. Simply run the corresponding job script. Note that quechua does not need job scripts. You can simply run the actual command (found within the job script) in a screen session (or any other tool of your choice like nohup).
+The curated KNMI dataset (5-min and 30-min variants) should be locally available. Update paths in:
 
+```
+dataset/get_datasets.py
+```
 
-Training the GPT model
+Make sure to set correct paths for both the 30 minute and 5 minute variants.
 
-Again, simply run the corresponding job script. Make sure that you have the checkpoints of the encoder passed correctly in the args.
-On quechua, and just for the GPT model, training works only on a single GPU. The command to run single GPU training (again needed only on quechua) is also in the job script (commented).
+### SEVIR
 
-Training Diffcast+PhyDnet
+For SEVIR, path to the raw data should be placed in `get_datasets.py`.
 
-Run the corresponding job script. Note that there is no config because the authors of diffcast have very simple config arguments which are defined in the training script. I retain this black box and thus do not change anything.
+---
 
-Training Diffcast+BlockGPT
+## 🏋️ Training
 
-The correspondning job script. But now note that there is a model config passed as well. I have tested it only on 30 minutes SEVIR, but you can easily change the config and training command in the job script. Make sure that you change the encoder and GPT paths correctly in the config.
+### VQGAN / Encoder
 
-Evaluation
+```bash
+# Run the job script or manually launch train_encoder.py
+accelerate launch --multi_gpu --num_processes=2 train_encoder.py --dataset knmi --encoder vqgan --encoder_config configs/Encoders/config_vqgan.json
+```
 
-The script evaluate.py runs evaluations for all models. To make dropping checkpoints of models to be evaluated easier, I have included an Evaluation config in the configs folder. Here, you can very easily place the checkpoints of the models (blockgpt, diffcast+phydnet or diffcast+blockgpt) and run evaluate.py. I have only run evaluations previously on quechua. If you wish to run the evaluation job script, please change the job config to request for more cpu memory. 
+### BlockGPT / NowcastingGPT
 
+```bash
+# Make sure VQGAN checkpoint paths are correctly passed. Either run the job_scripts which have all information, or run directly. For example, for KNMI 30:
+accelerate launch --multi_gpu --num_processes=2 --main_process_port=29300 train_gpt.py --dataset_name knmi --exp_name blockGPT_KNMI30 --seed 0 --vqgan_type vqgan --pretrained_model_name_or_path /projects/0/prjs0951/Varun/Checkpoints/vqgan_knmi_7M_1024_ckpt-177500.pt --config_name configs/GPT/config_blockGPT_KNMI30.json --per_device_train_batch_size 4 --gradient_accumulation_steps 1 --learning_rate 1e-5 --lr_scheduler_type cosine --resolution 128 --dataloader_num_workers 8 --video_stepsize 1 --segment_length 9 --context_length 3 --use_eval_dataset --weight_decay 0.01 --llama_attn_drop 0.1 --embed_no_wd --predictor_name blockGPT --encoder_config configs/Encoders/config_vqgan.json --validation_steps 5000
+```
+
+### DiffCast + PhyDNet
+
+```bash
+#Run the job script or run:
+accelerate launch --multi_gpu --num_processes=2 train_diffcast.py --dataset knmi --backbone phydnet --use_diff
+```
+
+### DiffCast + BlockGPT
+
+```bash
+#Run the job script or run: (I have tested only SEVIR 30 minutes)
+accelerate launch  --multi_gpu --num_processes=2 train_diffcast.py --dataset sevir --backbone blockGPTBackbone --use_diff --temp_res_sevir 30 --seq_len_sevir 49 --backbone_config configs/config_blockGPTBackbone_SEVIR30.json
+```
+
+> 📝 Quechua note: Job scripts are SLURM-based and used on Snellius. For Quechua, launch scripts manually in a `screen` or `nohup` session.
+
+---
+
+## 📊 Evaluation
+
+To evaluate models:
+
+1. Edit the YAML file in `configs/Evaluations/` to specify paths to model checkpoints.
+2. Run:
+
+```bash
+python evaluate.py --config configs/Evaluations/evaluate_config_KNMI30.yaml
+```
+
+This will output:
+
+- Visualizations of predictions
+- `.pkl` files of metrics
+- A `.txt` listing the evaluated models
+
+---
+
+## 📊 Results & Visualization
+
+Use `plot_metrics.ipynb` to load the `.pkl` files from `FinalPickledResults/` and generate thesis-quality plots.
+
+---
+
+## 📚 Acknowledgements
+
+- [NowcastingGPT](https://github.com/openclimatefix/nowcasting_gpt)
+- [DiffCast](https://github.com/mr905/diffcast)
+- [PhyDNet](https://github.com/vincent-leguen/PhyDNet)
+
+---
+
+## 🔮 Citation
+
+*If you use BlockGPT in your research, please cite this repository (bibtex to be added after paper submission).*
 

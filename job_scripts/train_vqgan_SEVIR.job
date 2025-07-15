@@ -33,5 +33,5 @@ export WANDB_API_KEY='241add8d0c5e60aee18d2a6c8334b609c84d9780'
 export WANDB_DIR='/projects/0/prjs0951/Varun/Wandb'
 
 
-accelerate launch --multi_gpu --num_processes=2 train_encoder.py --dataset sevir --encoder vqgan --encoder_config configs/config_vqgan.json
+accelerate launch --multi_gpu --num_processes=2 train_encoder.py --dataset sevir --encoder vqgan --encoder_config configs/Encoders/config_vqgan.json
 
