@@ -141,6 +141,8 @@ This will output:
 - `.pkl` files of metrics
 - A `.txt` listing the evaluated models
 
+Please note that I have carried out evaluations only on quechua. If you choose to run it on snellius, please update the job request to accomodate more cpu space.
+
 ---
 
 ## 📊 Results & Visualization
