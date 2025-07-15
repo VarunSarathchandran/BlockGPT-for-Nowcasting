@@ -103,7 +103,6 @@ DATAPATH = {
     'shanghai_30min':'/space2/vsarathchandra/Diffcast/shanghai_30min.h5',
     'meteo' : '/space2/vsarathchandra/Diffcast/Data/meteo_radar.h5',
     'sevir' : '/space2/vsarathchandra/Data',
-    'knmi': '/space2/vsarathchandra/Diffcast/Data/KNMI/H5'
 }
 
 def get_dataset(data_name, img_size, seq_len, temp_res_sevir,debug, **kwargs):
