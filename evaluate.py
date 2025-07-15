@@ -689,22 +689,26 @@ def get_diff_model(path,kwargs,use_BlockGPT=False,args=None):
         backbone_state_dict = {k.replace("backbone_net.", ""): v for k, v in combined_state_dict.items() if k.startswith("backbone_net.")}
         main_model_state_dict = {k: v for k, v in combined_state_dict.items() if not k.startswith("backbone_net.")}
         if use_BlockGPT:
-            from models.vq_predictor import get_model
+            from models.blockGPTBackbone import get_model
+            from models.blockGPTBackbone import BlockGPTBackboneConfig
+            config_path = kwargs.get('config_path', None)
+            with open(config_path) as f:
+                kwargs = json.load(f)
+                config = BlockGPTBackboneConfig(**kwargs)
+                backbone = get_model(config)        
         else:
             from models.phydnet import get_model
-
- 
-        backbone= get_model(**kwargs)
+            backbone= get_model(**kwargs)
 
         from models.diffcast import get_model
         kwargs = {
-            'img_channels' :1,
-            'dim' : 64,
-            'dim_mults' : (1,2,4,8),
-            'T_in': args.context_length,
-            'T_out':  args.segment_length-args.context_length,
-            'sampling_timesteps': 250,
-        }
+                'img_channels' :1,
+                'dim' : 64,
+                'dim_mults' : (1,2,4,8),
+                'T_in': args.context_length,
+                'T_out':  args.segment_length-args.context_length,
+                'sampling_timesteps': 250,
+            }
         diff_model = get_model(**kwargs)
         backbone.load_state_dict(backbone_state_dict)
         diff_model.load_state_dict(main_model_state_dict)
@@ -812,13 +816,7 @@ def load_model_config(args):
         for model_info in config.get("diffcast_models", []):
             if model_info["use_BlockGPT"]:
                 kwargs = {
-            'vqgan_ckpt' : model_info['vqgan_checkpoint'],
-            'predictor_ckpt' : model_info['predictor_checkpoint'],
-            'vqgan_type' : 'vqgan',
-            'config_name' : model_info['config'],
-            'predictor_type' : "blockGPT",
-            'device' : args.device,
-
+             "config_path" : model_info["config_path"]
         
                 }
             else:

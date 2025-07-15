@@ -20,13 +20,45 @@ from .modules.losses.vqperceptual import VQLPIPSWithDiscriminator as VQLoss
 # from taming.modules.vqvae.quantize import VectorQuantizer2 as VectorQuantizer
 # from taming.modules.vqvae.quantize import GumbelQuantize
 # from taming.modules.vqvae.quantize import EMAVectorQuantizer
+def add_perturbation(z, z_q, z_channels, codebook_norm, codebook, alpha, beta, delta):
+    # reshape z -> (batch, height * width, channel) and flatten
+    z = torch.einsum('b c h w -> b h w c', z).contiguous()
+    z_flattened = z.view(-1, z_channels)
 
+    if codebook_norm:
+        z = F.normalize(z, p=2, dim=-1)
+        z_flattened = F.normalize(z_flattened, p=2, dim=-1)
+        embedding = F.normalize(codebook.weight, p=2, dim=-1)
+    else:
+        embedding = codebook.weight
+
+    d = torch.sum(z_flattened ** 2, dim=1, keepdim=True) + \
+        torch.sum(embedding ** 2, dim=1) - 2 * \
+        torch.einsum('bd,dn->bn', z_flattened, torch.einsum('n d -> d n', embedding))
+
+    _, min_encoding_indices = torch.topk(d, delta, dim=1, largest=False)
+    random_prob = torch.rand(min_encoding_indices.shape[0], device=d.device)
+    random_idx = torch.randint(0, delta, random_prob.shape, device=d.device)
+    random_idx = torch.where(random_prob > alpha, 0, random_idx)
+    min_encoding_indices = min_encoding_indices[torch.arange(min_encoding_indices.size(0)), random_idx]
+
+    perturbed_z_q = codebook(min_encoding_indices).view(z.shape)
+    if codebook_norm:
+        perturbed_z_q = F.normalize(perturbed_z_q, p=2, dim=-1)
+    perturbed_z_q = z + (perturbed_z_q - z).detach()
+    perturbed_z_q = torch.einsum('b h w c -> b c h w', perturbed_z_q)
+
+    mask = torch.arange(z.shape[0], device=perturbed_z_q.device) < int(z.shape[0] * beta)
+    mask = mask[:, None, None, None]
+
+    return torch.where(mask, perturbed_z_q, z_q)
 class VQModel(nn.Module):
     def __init__(self,
                  ddconfig,
                  lossconfig,
                  n_embed,
                  embed_dim,
+                 perturb,
                  ckpt_path=None,
                  ignore_keys=[],
                  image_key="image",
@@ -54,7 +86,8 @@ class VQModel(nn.Module):
             self.register_buffer("colorize", torch.randn(3, colorize_nlabels, 1, 1))
         if monitor is not None:
             self.monitor = monitor
-
+        self.perturb= perturb
+        print("perturbation is ",self.perturb)
     # def init_from_ckpt(self, path, ignore_keys=list()):
     #     sd = torch.load(path, map_location="cpu")["state_dict"]
     #     keys = list(sd.keys())
@@ -69,9 +102,14 @@ class VQModel(nn.Module):
     def encode(self, x):
         h = self.encoder(x)
         h = self.quant_conv(h)
-        quant, emb_loss, info = self.quantize(h)
-        return quant, emb_loss, info
-
+       # quant, emb_loss, info = self.quantize(h)
+        #return quant, emb_loss, info
+        return h
+    # def encode(self, x):
+    #     h = self.encoder(x)
+    #     h = self.quant_conv(h)
+    #     quant, emb_loss, info = self.quantize(h)
+    #     return quant, emb_loss, info
     def decode(self, quant):
         quant = self.post_quant_conv(quant)
         dec = self.decoder(quant)
@@ -87,15 +125,29 @@ class VQModel(nn.Module):
     #     quant, diff, _ = self.encode(input)
     #     dec = self.decode(quant)
     #     return dec, diff
-    def forward(self,input,optimizer_idx,global_step):
-        quant, qloss, _ = self.encode(input)
+    # def forward(self,input,optimizer_idx,global_step):
+    #     quant, qloss, _ = self.encode(input)
+    #     print("quant shape is ",quant.shape)
+    #     recons = self.decode(quant)
+    #     loss,log_dict = self.compute_loss(qloss,input,recons,optimizer_idx,global_step,last_layer=self.get_last_layer(),split="train")
+    #     #optionally consider returning log_dict
+    #     return recons, loss,log_dict
+    def forward(self,input,optimizer_idx,global_step,alpha,beta,delta):
+        h = self.encode(input)
+        quant, qloss, _ = self.quantize(h)
+        if self.perturb:
+            print("perturbing the quantized output")
+            quant = add_perturbation(h, quant, self.quantize.e_dim, False, self.quantize.embedding, alpha, beta, delta)
         recons = self.decode(quant)
         loss,log_dict = self.compute_loss(qloss,input,recons,optimizer_idx,global_step,last_layer=self.get_last_layer(),split="train")
         #optionally consider returning log_dict
         return recons, loss,log_dict
     def inference(self,input):
         with torch.no_grad():
-            quant, diff, _ = self.encode(input)
+            #quant, diff, _ = self.encode(input)
+            h = self.encode(input)
+            quant, _, _ = self.quantize(h)
+            #quant,_,_ = self.encode(input)
             recons = self.decode(quant)
         return recons#.reshape(-1,24,1,128,128)
     def tokenize(self,x,ctx_len,n_tokens,include_sos=False,include_special_toks=True):
@@ -112,7 +164,9 @@ class VQModel(nn.Module):
             n_embd = self.quantize.n_e
             B,T,C,H,W = x.shape
             x = x.reshape(B*T,C,H,W)
-            _,_,info=self.encode(x)
+            #_,_,info=self.encode(x)
+            h= self.encode(x)
+            _,_,info=self.quantize(h)
             indices = info[2].view(B,T,-1)
             sf_token = n_embd 
             sf_tokens = torch.ones(B,T,1).to(indices.device,indices.dtype)*sf_token

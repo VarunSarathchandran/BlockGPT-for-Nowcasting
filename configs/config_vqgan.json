@@ -23,7 +23,8 @@
         "codebook_weight": 1.0,
         "perceptual_weight": 1.0
 
-        }  }        
+        }  },
+        "perturb":false         
 
     }
     }

@@ -656,14 +656,15 @@ class GaussianDiffusion(nn.Module):
         auto_normalize = False,
         offset_noise_strength = 0.,  # https://www.crosslabs.org/blog/diffusion-with-offset-noise
         min_snr_loss_weight = False, # https://arxiv.org/abs/2303.09556
-        min_snr_gamma = 5
+        min_snr_gamma = 5,
+        freeze_backbone=False
     ):
         super().__init__()
         assert not model.random_or_learned_sinusoidal_cond
 
         self.model = model
         self.ctx_net = ctx_net
-
+        self.freeze_backbone = freeze_backbone
         self.channels = self.model.channels
         self.self_condition = self.model.self_condition
 
@@ -965,7 +966,11 @@ class GaussianDiffusion(nn.Module):
             T_out = frames_gt.shape[1]
             device = frames_in.device
 
-            backbone_output, backbone_loss = self.backbone_net.predict(frames_in, frames_gt=frames_gt, compute_loss=compute_loss)
+            if not self.freeze_backbone:
+                backbone_output, backbone_loss = self.backbone_net.predict(frames_in, frames_gt=frames_gt, compute_loss=compute_loss)
+            else:
+                backbone_output, _ = self.backbone_net.predict(frames_in, frames_gt=frames_gt, compute_loss=False)
+
 
             frames_in = self.normalize(frames_in)
             backbone_output = self.normalize(backbone_output)
@@ -993,7 +998,10 @@ class GaussianDiffusion(nn.Module):
             diff_loss /= (T_out // T_in)
 
             #alpha = torch.tensor(0.5)
-            loss = (1 - self.loss_weight_factor) * backbone_loss + self.loss_weight_factor * diff_loss
+            if not self.freeze_backbone:
+                loss = (1 - self.loss_weight_factor) * backbone_loss + self.loss_weight_factor * diff_loss
+            else: 
+                loss = diff_loss
             return loss, loss
         else:
             pred, mu, y = self.sample(input_tensor=input_tensor, T_out=T_out)
@@ -1058,6 +1066,7 @@ def get_model(
     T_out = 20,
     timesteps = 1000,           # number of steps
     sampling_timesteps = 250,    # number of sampling timesteps (using ddim for faster inference [see citation for ddim paper])
+    freeze_backbone = False,
     **kwargs
 ):
     
@@ -1077,7 +1086,8 @@ def get_model(
         model = unet,
         ctx_net = context_net,
         timesteps = timesteps,           # number of steps
-        sampling_timesteps = sampling_timesteps,        
+        sampling_timesteps = sampling_timesteps, 
+        freeze_backbone = freeze_backbone       
     )
     
     return diffusion
