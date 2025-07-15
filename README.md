@@ -153,9 +153,9 @@ Use `plot_metrics.ipynb` to load the `.pkl` files from `FinalPickledResults/` an
 
 ## 📚 Acknowledgements
 
-- [NowcastingGPT](https://github.com/openclimatefix/nowcasting_gpt)
-- [DiffCast](https://github.com/mr905/diffcast)
-- [PhyDNet](https://github.com/vincent-leguen/PhyDNet)
+- [NowcastingGPT]
+- [DiffCast]
+- [PhyDNet]
 
 ---
 
@@ -163,3 +163,9 @@ Use `plot_metrics.ipynb` to load the `.pkl` files from `FinalPickledResults/` an
 
 *If you use BlockGPT in your research, please cite this repository (bibtex to be added after paper submission).*
 
+
+## Checkpoints 
+
+Checkpoints for all models used in my thesis are both on snellius and quechua. 
+On snellius: /projects/0/prjs0951/Varun/FinalCheckpoints
+On quechua: /space2/vsarathchandra/iVideoGPT/FinalCheckpoints
