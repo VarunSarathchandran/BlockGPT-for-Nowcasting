@@ -323,12 +323,14 @@ class Runner(object):
             with open(self.args.backbone_config) as f:
                 kwargs = json.load(f)
                 config = BlockGPTBackboneConfig(**kwargs)
-            model = get_model(config)        
+            model = get_model(config)     
+            #turng off grad for backbone    
+            for param in model.parameters():
+                 param.requires_grad = False
         else:
             raise NotImplementedError
-        #turng off grad for backbone 
-        for param in model.parameters():
-             param.requires_grad = False
+
+
         
         if self.args.use_diff:
             print("diff is being used")
