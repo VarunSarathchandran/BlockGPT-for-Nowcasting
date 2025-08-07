@@ -68,6 +68,8 @@ conda activate blockgpt
 # Step 3: Install specific versions
 pip install imageio==2.33.0 --no-deps
 pip install ema-pytorch
+pip install plotly==6.0.1
+pip install kaleido==0.2.1
 ```
 
 ---
